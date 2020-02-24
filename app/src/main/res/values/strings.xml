@@ -1,12 +1,15 @@
 <resources>
-    <string name="menu_easy">EASY</string>
-    <string name="menu_medium">MEDIUM</string>
-    <string name="menu_hard">HARD</string>
-    <string name="app_name">Super Jackpot</string>
-    <string name="no_credit">You do not have enough credit</string>
-    <string name="new_level">Congratulations! You got new level!</string>
+    <string name="menu_easy">Легко</string>
+    <string name="menu_medium">Средне</string>
+    <string name="menu_hard">Слонжно</string>
+    <string name="app_name">Suрer Jackрot</string>
+    <string name="no_credit">У вас недостаточно кредитов</string>
+    <string name="new_level">Поздравляем! Ты получил новый уровень!</string>
     <string name="money">$</string>
-    <string name="exit">Do you really want to quit?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="exit">Ты уверен что хочешь выйти?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет, вернуться</string>
+    <string name="push">Поперло! Срочно! Попробуй и ты</string>
+    <string name="facebook_app_id">190281865624656</string>
+    <string name="fb_login_protocol_scheme">fb190281865624656</string>
 </resources>

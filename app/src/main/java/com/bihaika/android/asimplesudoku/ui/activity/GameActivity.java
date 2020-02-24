@@ -1,4 +1,4 @@
-package com.bihaika.android.asimplesudoku;
+package com.bihaika.android.asimplesudoku.ui.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bihaika.android.asimplesudoku.R;
 import com.bihaika.android.asimplesudoku.dialog.DialogExit;
 
 import java.io.IOException;
@@ -42,7 +43,6 @@ public class GameActivity extends Activity {
     private boolean isForeground;
     private SoundPool sounder_pool_new;
     private int btn_for_wn, sndBtn, sndCredit, sndSpin;
-    private SharedPreferences sp;
 
     private int lvl = 1;
     private int numItems = 7;
@@ -51,13 +51,11 @@ public class GameActivity extends Activity {
     private int[][] wins = {{2500, 1000, 500, 200, 100, 50, 20}, {5000, 2000, 1000, 400, 200, 100, 40}, {7500, 3000, 1500, 600, 300, 150, 60}};
 
     private SharedPreferences prefs;
-    private FrameLayout parent_layout;
-
 
 
     private Timer timer = new Timer();
     private TimerTask rotationTask;
-    private int numRotations, item0, item1, item2;
+    private int numRotations, object0, object1, object2;
     private int bet = 0;
     private int win = 0;
     private AnimatorSet animWin = new AnimatorSet();
@@ -72,10 +70,10 @@ public class GameActivity extends Activity {
 
         // fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        parent_layout = findViewById(R.id.root);
+        FrameLayout parent_layout = findViewById(R.id.root);
 
         // preferences
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         prefs = getSharedPreferences("flag", MODE_PRIVATE);
 
@@ -118,9 +116,9 @@ public class GameActivity extends Activity {
 
 
         // random items on start
-        ((ImageView) findViewById(R.id.item0)).setImageResource(getResources().getIdentifier("item" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
-        ((ImageView) findViewById(R.id.item1)).setImageResource(getResources().getIdentifier("item" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
-        ((ImageView) findViewById(R.id.item2)).setImageResource(getResources().getIdentifier("item" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
+        ((ImageView) findViewById(R.id.item0)).setImageResource(getResources().getIdentifier("object_" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
+        ((ImageView) findViewById(R.id.item1)).setImageResource(getResources().getIdentifier("object_" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
+        ((ImageView) findViewById(R.id.item2)).setImageResource(getResources().getIdentifier("object_" + Math.round(Math.random() * (numItems - 1)), "drawable", getPackageName()));
 
         // bg animation
         List<Animator> animatorArrayList = new ArrayList<>();
@@ -343,48 +341,44 @@ public class GameActivity extends Activity {
     private class rotation extends TimerTask {
         @Override
         public void run() {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    numRotations++;
+            runOnUiThread(() -> {
+                numRotations++;
 
-                    // random items
-                    item0 = (int) Math.round(Math.random() * (numItems - 1));
-                    if (numRotations == NUM_ROTATION && Math.random() <= (float) WIN_PERCENT * 0.01f)
-                        item1 = item2 = item0;
-                    else {
-                        item1 = (int) Math.round(Math.random() * (numItems - 1));
-                        item2 = (int) Math.round(Math.random() * (numItems - 1));
-                    }
 
-                    // show items
-                    ((ImageView) findViewById(R.id.item0)).setImageResource(getResources().getIdentifier("item" + item0, "drawable", getPackageName()));
-                    ((ImageView) findViewById(R.id.item1)).setImageResource(getResources().getIdentifier("item" + item1, "drawable", getPackageName()));
-                    ((ImageView) findViewById(R.id.item2)).setImageResource(getResources().getIdentifier("item" + item2, "drawable", getPackageName()));
+                object0 = (int) Math.round(Math.random() * (numItems - 1));
+                if (numRotations == NUM_ROTATION && Math.random() <= (float) WIN_PERCENT * 0.01f)
+                    object1 = object2 = object0;
+                else {
+                    object1 = (int) Math.round(Math.random() * (numItems - 1));
+                    object2 = (int) Math.round(Math.random() * (numItems - 1));
+                }
 
-                    // stop
-                    if (numRotations == NUM_ROTATION) {
-                        rotationTask.cancel();
 
-                        // enable buttons
-                        findViewById(R.id.btnOne).setEnabled(true);
-                        findViewById(R.id.btnMax).setEnabled(true);
-                        findViewById(R.id.btnSpin).setEnabled(true);
+                ((ImageView) findViewById(R.id.item0)).setImageResource(getResources().getIdentifier("object_" + object0, "drawable", getPackageName()));
+                ((ImageView) findViewById(R.id.item1)).setImageResource(getResources().getIdentifier("object_" + object1, "drawable", getPackageName()));
+                ((ImageView) findViewById(R.id.item2)).setImageResource(getResources().getIdentifier("object_" +
+                        "" + object2, "drawable", getPackageName()));
 
-                        // check win
-                        if (item0 == item1 && item0 == item2)
-                            addMoney(wins[bet][item0]);
 
-                        if(credit <= 0) {
-                            updateLvl();
-                        }
+                if (numRotations == NUM_ROTATION) {
+                    rotationTask.cancel();
+
+                    findViewById(R.id.btnOne).setEnabled(true);
+                    findViewById(R.id.btnMax).setEnabled(true);
+                    findViewById(R.id.btnSpin).setEnabled(true);
+
+
+                    if (object0 == object1 && object0 == object2)
+                        addMoney(wins[bet][object0]);
+
+                    if(credit <= 0) {
+                        updateLvl();
                     }
                 }
             });
         }
     }
 
-    // updateText
     void updateText() {
         ((TextView) findViewById(R.id.txtLvl)).setText(Integer.toString(lvl));
         ((TextView) findViewById(R.id.txtCredit)).setText(getString(R.string.money) + credit);
@@ -400,14 +394,14 @@ public class GameActivity extends Activity {
 
         updateText();
 
-        // sound
+
         if (isForeground)
             sounder_pool_new.play(btn_for_wn, 1, 1, 0, 0, 1);
 
         animWin.start();
     }
 
-    // noCredit
+
     void noCredit() {
 
         if(credit > 0) {
@@ -416,25 +410,20 @@ public class GameActivity extends Activity {
             updateLvl();
         }
 
-        // sound
         if (isForeground)
             sounder_pool_new.play(sndCredit, 1, 1, 0, 0, 1);
 
-        // do something you need if no credit ...
+
     }
 
-    // addMoney
     void addMoney(int money) {
         win += money;
         updateText();
 
-        // sound
         if (isForeground)
             if (prefs.getBoolean("check2", true))
             sounder_pool_new.play(btn_for_wn, 1, 1, 0, 0, 1);
 
         animWin.start();
-        //showAdmobInterstitial();
-        // do something with updated money here ...
     }
 }
