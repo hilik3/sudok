@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/main_frame_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <com.bihaika.android.asimplesudoku.SudokuBoardView
+        android:id="@+id/main_sudokuboard"
+        android:background="@android:color/holo_purple"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:text="TIMER"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:columnCount="3"
+            android:layout_gravity="center"
+            android:rowCount="4"
+            android:layout_height="wrap_content">
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="btn" />
+
+
+        </GridLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>
