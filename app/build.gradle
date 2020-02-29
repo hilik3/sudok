@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.bihaika.android.jack"
+        applicationId "com.bih.android.jack"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
